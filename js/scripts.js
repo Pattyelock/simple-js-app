@@ -5,20 +5,32 @@ let pokemonList = [];
 pokemonList.push(
   {
     name: "Bulbasaur",
-    height: 7,
+    height: 0.7,
     types: ["grass", "poison"]
   },
   {
-    name: "Charmander",
-    height: 6,
-    types: ["fire"]
+    name: "Charizard",
+    height: 1.7,
+    types: ["fire", "flying"]
   },
   {
     name: "Squirtle",
-    height: 5,
+    height: 1.0,
     types: ["water"]
   }
 );
 
-// Log the pokemonList array to see the result
-console.log(pokemonList);
+// Part 1: Create a for loop to iterate through the pokemonList array
+for (let i = 0; i < pokemonList.length; i++) {
+  // Create a variable to hold the output string for each Pokémon
+  let output = pokemonList[i].name + " (height: " + pokemonList[i].height + ")";
+  
+  // Part 2: Add a conditional to highlight large Pokémon
+  // If the Pokémon's height is greater than 1.5, add a "Wow, that's big!" note
+  if (pokemonList[i].height > 1.5) {
+    output += " - Wow, that's big!";
+  }
+
+  // Use document.write() to write the result on the web page
+  document.write(output + "<br>");
+}
