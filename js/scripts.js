@@ -6,38 +6,55 @@ let pokemonRepository = (function () {
       { name: 'Squirtle', type: 'Water', level: 11 }
   ];
 
+  // Public method to get all Pokemon
   function getAll() {
       return pokemonList;
   }
 
+  // Public method to add a new Pokemon
   function add(pokemon) {
       pokemonList.push(pokemon);
   }
 
+  // AddListItem to create buttons and display them in the DOM
+  function addListItem(pokemon) {
+      // Select the ul element where the list will be displayed
+      let pokemonListElement = document.querySelector('.pokemon-list');
+
+      // Create an li element
+      let listItem = document.createElement('li');
+
+      // Create a button element
+      let button = document.createElement('button');
+      button.innerText = pokemon.name; // Set the button's text to the Pokémon's name
+      button.classList.add('pokemon-button'); // Add class for styling
+
+      // Append the button to the list item
+      listItem.appendChild(button);
+
+      // Append the list item to the unordered list
+      pokemonListElement.appendChild(listItem);
+
+      // Add event listener to the button to show Pokémon details on click
+      button.addEventListener('click', function() {
+          showDetails(pokemon);
+      });
+  }
+
+  // Function to show details of a specific Pokémon (console log for now)
+  function showDetails(pokemon) {
+      console.log(pokemon); // This will print the Pokemon object when clicked
+  }
+
+  // Return the methods that should be publicly accessible
   return {
       getAll: getAll,
-      add: add
+      add: add,
+      addListItem: addListItem
   };
 })();
 
-// Select the unordered list with the class 'pokemon-list'
-let pokemonListElement = document.querySelector('.pokemon-list');
-
-// Iterate through each Pokémon and create list items and buttons
+// Iterate through each Pokémon and create list items/buttons
 pokemonRepository.getAll().forEach(function(pokemon) {
-  // Create an 'li' element for each Pokémon
-  let listItem = document.createElement('li');
-
-  // Create a 'button' element and set the Pokémon's name as the button's text
-  let button = document.createElement('button');
-  button.innerText = pokemon.name;
-
-  // Add a class to the button for styling
-  button.classList.add('pokemon-button');
-
-  // Append the button to the 'li' element
-  listItem.appendChild(button);
-
-  // Append the 'li' element to the unordered list
-  pokemonListElement.appendChild(listItem);
+  pokemonRepository.addListItem(pokemon);
 });
