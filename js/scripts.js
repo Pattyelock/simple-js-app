@@ -1,6 +1,4 @@
-// Create the pokemonRepository variable and assign the IIFE to it
-let pokemonRepository = (function() {
-  // The pokemonList array is now private within this IIFE
+let pokemonRepository = (function () {
   let pokemonList = [
       { name: 'Pikachu', type: 'Electric', level: 10 },
       { name: 'Charmander', type: 'Fire', level: 12 },
@@ -8,30 +6,38 @@ let pokemonRepository = (function() {
       { name: 'Squirtle', type: 'Water', level: 11 }
   ];
 
-  // Function to get all Pokémon (public)
   function getAll() {
       return pokemonList;
   }
 
-  // Function to add a Pokémon to the list (public)
   function add(pokemon) {
       pokemonList.push(pokemon);
   }
 
-  // The IIFE returns an object with references to the getAll and add functions
   return {
       getAll: getAll,
       add: add
   };
 })();
 
-// Use the getAll() method to access the pokemonList array and update the forEach() loop
+// Select the unordered list with the class 'pokemon-list'
+let pokemonListElement = document.querySelector('.pokemon-list');
+
+// Iterate through each Pokémon and create list items and buttons
 pokemonRepository.getAll().forEach(function(pokemon) {
-  console.log(`Name: ${pokemon.name}, Type: ${pokemon.type}, Level: ${pokemon.level}`);
+  // Create an 'li' element for each Pokémon
+  let listItem = document.createElement('li');
+
+  // Create a 'button' element and set the Pokémon's name as the button's text
+  let button = document.createElement('button');
+  button.innerText = pokemon.name;
+
+  // Add a class to the button for styling
+  button.classList.add('pokemon-button');
+
+  // Append the button to the 'li' element
+  listItem.appendChild(button);
+
+  // Append the 'li' element to the unordered list
+  pokemonListElement.appendChild(listItem);
 });
-
-// Example of adding a new Pokémon using the add function
-pokemonRepository.add({ name: 'Jigglypuff', type: 'Fairy', level: 8 });
-
-// Verify that the new Pokémon was added by printing the updated list
-console.log(pokemonRepository.getAll());
